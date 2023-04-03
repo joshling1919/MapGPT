@@ -1,0 +1,48 @@
+# Virtual environment
+venv/
+
+# env files
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc.so
+*.egg-info/
+dist/
+build/
+*.egg
+*.log
+*.sqlite
+
+# FastAPI
+*.db
+*.sqlite3
+
+# React
+/frontend/node_modules/
+/frontend/build/
+/frontend/.cache
+/frontend/.env.local
+/frontend/.env.production
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
