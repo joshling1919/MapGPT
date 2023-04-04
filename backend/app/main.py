@@ -4,7 +4,7 @@ import openai
 
 from .config import MONGODB_URL, DATABASE_NAME, OPENAI_API_KEY
 from .models.concept_map import ConceptMapRequest
-from .templates.prompts import concept_map_template
+from .templates.prompts import concept_map_template, system_prompt_template
 
 openai.api_key = OPENAI_API_KEY
 app = FastAPI()
@@ -28,17 +28,25 @@ async def root():
 async def generate_concept_map(request: ConceptMapRequest):
     topic = request.prompt
     try:
-        formatted_prompt = concept_map_template.format(topic=topic)
-        response = openai.Completion.create(
-            engine="text-davinci-002",
-            prompt=formatted_prompt,
-            max_tokens=100,
-            n=1,
-            stop=None,
-            temperature=0.5,
+        # Construct the chat prompt as a list of messages
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt_template
+            },
+            {
+                "role": "user",
+                "content": concept_map_template.format(topic=topic)
+            }
+        ]
+
+        # Call openai.createChatCompletion to generate the concept map
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
         )
 
-        concept_map = response.choices[0].text.strip()
+        concept_map = response.choices[0].message.content.strip()
 
         # Convert the generated concept map text to JSON format
         # You can modify this part according to the expected format of the concept map
