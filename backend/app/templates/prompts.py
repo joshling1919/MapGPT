@@ -1,86 +1,31 @@
 EXAMPLE_JSON = '''
-{
-  "ConceptMap":{
-    "title":"Skills and Prerequisite Knowledge for 2-Step Equations",
-    "concepts":[
-      {
-        "id":1,
-        "name":"Understanding variables",
-        "relations":[
-          
-        ]
-      },
-      {
-        "id":2,
-        "name":"Combining like terms",
-        "relations":[
-          
-        ]
-      },
-      {
-        "id":3,
-        "name":"Properties of equality",
-        "relations":[
-          
-        ]
-      },
-      {
-        "id":4,
-        "name":"Solving 1-step equations",
-        "relations":[
-          {
-            "type":"depends_on",
-            "target":1
-          },
-          {
-            "type":"depends_on",
-            "target":3
-          }
-        ]
-      },
-      {
-        "id":5,
-        "name":"Inverse operations",
-        "relations":[
-          {
-            "type":"depends_on",
-            "target":3
-          }
-        ]
-      },
-      {
-        "id":6,
-        "name":"Isolating the variable",
-        "relations":[
-          {
-            "type":"depends_on",
-            "target":4
-          },
-          {
-            "type":"depends_on",
-            "target":5
-          }
-        ]
-      },
-      {
-        "id":7,
-        "name":"2-step equations",
-        "relations":[
-          {
-            "type":"depends_on",
-            "target":2
-          },
-          {
-            "type":"depends_on",
-            "target":6
-          }
-        ]
-      }
-    ]
-  }
-}
+const initialNodes = [
+  { id: "1", data: { label: "Understanding variables" } },
+  { id: "2", data: { label: "Combining like terms" } },
+  { id: "3", data: { label: "Properties of equality" } },
+  { id: "4", data: { label: "Solving 1-step equations" } },
+  { id: "5", data: { label: "Inverse operations" } },
+  { id: "6", data: { label: "Isolating the variable" } },
+  { id: "7", data: { label: "2-step equations" } },
+];
+
+const initialEdges = [
+  { id: "4-1", source: "4", target: "1" },
+  { id: "4-3", source: "4", target: "3" },
+  { id: "5-3", source: "5", target: "3" },
+  { id: "6-4", source: "6", target: "4" },
+  { id: "6-5", source: "6", target: "5" },
+  { id: "7-2", source: "7", target: "2" },
+  { id: "7-6", source: "7", target: "6" },
+];
+
 '''
 
-system_prompt_template = f"You are a generator that creates concept maps in JSON format. For example, when you input the example 2-step equations, you will get the following concept map: {EXAMPLE_JSON}"
+system_prompt_template = f""""You are a generator that creates concept maps graphs. 
+Your goal is to help K-12 teachers better understand what underlying concepts
+a student needs to first master in order to fully comprehend a specific topic.
+For example, when you are given the topic, "2-step equations", you will generate the 
+following graph in JavaScript: {EXAMPLE_JSON} in this exact format. You do not need to
+generate anything other than the graph's nodes and edges in JavaScript."""
 
-concept_map_template = "In JSON format, create a concept map for the following topic: {topic}"
+concept_map_template = "Create a concept map for the following topic: {topic}"

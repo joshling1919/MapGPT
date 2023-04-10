@@ -19,23 +19,17 @@
 // ];
 
 export const initialNodes = [
-  { id: "1", data: { label: "Tanjiro Kamado" } },
-  { id: "2", data: { label: "Nezuko Kamado" } },
-  { id: "3", data: { label: "Zenitsu Agatsuma" } },
-  { id: "4", data: { label: "Inosuke Hashibira" } },
-  { id: "5", data: { label: "Giyu Tomioka" } },
-  { id: "6", data: { label: "Shinobu Kocho" } },
-  { id: "7", data: { label: "Kanao Tsuyuri" } },
+  { id: "1", data: { label: "Measures of Error" } },
+  { id: "2", data: { label: "Mean Squared Error" } },
+  { id: "3", data: { label: "Actual Values" } },
+  { id: "4", data: { label: "Predicted Values" } },
+  { id: "5", data: { label: "Squared Residuals" } },
 ];
 
 export const initialEdges = [
-  { id: "1-2", source: "1", target: "2" }, // Tanjiro is Nezuko's brother
-  { id: "1-3", source: "1", target: "3" }, // Tanjiro is friends with Zenitsu
-  { id: "1-4", source: "1", target: "4" }, // Tanjiro is friends with Inosuke
-  { id: "1-5", source: "1", target: "5" }, // Tanjiro is mentored by Giyu
-  { id: "1-6", source: "1", target: "6" }, // Tanjiro is connected to Shinobu
-  { id: "2-6", source: "2", target: "6" }, // Nezuko is connected to Shinobu
-  { id: "3-4", source: "3", target: "4" }, // Zenitsu is friends with Inosuke
-  { id: "5-6", source: "5", target: "6" }, // Giyu is connected to Shinobu
-  { id: "6-7", source: "6", target: "7" }, // Shinobu is Kanao's mentor
+  { id: "2-1", source: "2", target: "1" },
+  { id: "2-3", source: "2", target: "3" },
+  { id: "2-4", source: "2", target: "4" },
+  { id: "5-3", source: "5", target: "3" },
+  { id: "5-4", source: "5", target: "4" },
 ];
