@@ -70,7 +70,23 @@ const ConceptMap = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     generateConceptMap(topic).then((res) => {
-      console.log("res", res);
+      generateConceptMap(topic).then((res) => {
+        console.log("res.concept_map", res.concept_map);
+        const parsed = JSON.parse(res.concept_map);
+        console.log("parsed", parsed);
+        if (parsed) {
+          const responseNodes = parsed.initialNodes;
+          const responseEdges = parsed.initialEdges;
+
+          const { nodes: newLayoutedNodes, edges: newLayoutedEdges } =
+            getLayoutedElements(responseNodes, responseEdges);
+
+          setNodes(newLayoutedNodes);
+          setEdges(newLayoutedEdges);
+        } else {
+          console.error("Could not parse nodes and edges from the response.");
+        }
+      });
     });
   };
 

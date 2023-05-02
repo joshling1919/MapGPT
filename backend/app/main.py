@@ -2,21 +2,26 @@ from fastapi import FastAPI, HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 import openai
 
-from .config import MONGODB_URL, DATABASE_NAME, OPENAI_API_KEY
-from .models.concept_map import ConceptMapRequest
-from .templates.prompts import concept_map_template, system_prompt_template
+from config import OPENAI_API_KEY
+from models.concept_map import ConceptMapRequest
+from templates.prompts import concept_map_template, system_prompt_template
+from fastapi.middleware.cors import CORSMiddleware
 
 openai.api_key = OPENAI_API_KEY
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173",  # Replace this with the origin of your frontend app
+    # Add any other origins you need
+]
 
-@app.on_event("startup")
-async def startup_event():
-    mongodb_url = MONGODB_URL
-    database_name = DATABASE_NAME
-
-    app.mongodb_client = AsyncIOMotorClient(mongodb_url)
-    app.mongodb = app.mongodb_client[database_name]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
